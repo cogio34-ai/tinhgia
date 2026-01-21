@@ -971,21 +971,35 @@ let currentImages = [];
 let currentIndex = 0;
 
 function openPos(product) {
-    // Lấy mảng ảnh từ object product, nếu không có thì dùng ảnh mặc định
-    currentImages = product.images || [product.image]; 
-    currentIndex = 0;
+    // 1. Gán dữ liệu cho Slider
+    currentImageList = product.images || [product.image];
+    currentImgIdx = 0;
 
-    // Đổ dữ liệu vào Modal
+    // 2. Đổ dữ liệu vào giao diện Modal
     document.getElementById('modal_product_name').innerText = product.name;
     document.getElementById('modal_product_price').innerText = product.price.toLocaleString() + 'đ';
     document.getElementById('modal_product_specs').innerText = product.specs;
 
-    // Cập nhật hiển thị ảnh đầu tiên và trạng thái nút bấm
-    updateSlider();
+    // 3. Cập nhật hiển thị ảnh
+    updateModalGallery();
 
-    // Hiển thị Modal
+    // 4. SỬA TẠI ĐÂY: Kết nối đúng với hàm giỏ hàng của bạn
+    document.getElementById('modal_add_btn').onclick = function() {
+        // Kiểm tra xem hàm thêm vào giỏ của bạn là 'addToCart' hay 'addInvoiceToCart'
+        // Tôi sẽ dùng 'addToCart' theo logic thông thường:
+        if (typeof addToCart === 'function') {
+            // Chỉ truyền 3 tham số cơ bản để tránh lỗi logic giỏ hàng cũ
+            addToCart(product.name, product.price, currentImageList[0]); 
+        } else if (typeof addInvoiceToCart === 'function') {
+            addInvoiceToCart(product.name, product.price);
+        }
+        
+        closeModal(); // Đóng popup sau khi thêm
+    };
+
     document.getElementById('productModal').style.display = 'flex';
 }
+
 
 function updateSlider() {
     const imgElement = document.getElementById('modal_product_img');
