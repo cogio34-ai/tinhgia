@@ -774,28 +774,33 @@
         <button class="notif-close" onclick="hideNotif()">×</button>
     </div>
     <div id="productModal" class="modal" style="display:none; position:fixed; z-index:10001; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.85); align-items:center; justify-content:center;">
-        <div style="background:#fff; width:95%; max-width:420px; border-radius:20px; position:relative; padding:25px 20px 20px; box-shadow:0 20px 50px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease;">  
-            <div onclick="closeModal()" style="position:absolute; top:12px; right:12px; width:32px; height:32px; background:#f1f5f9; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:22px; color:#64748b; z-index:110;">&times;
+        <div style="background: rgba(255, 255, 255, 0.6); width:95%; max-width:420px; border-radius:20px; position:relative; padding:25px 20px 20px; box-shadow:0 20px 50px rgba(0,0,0,0.3); animation: zoomIn 0.3s ease; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,0.4);">  
+            <div onclick="closeModal()" style="position:absolute; top:12px; right:12px; width:32px; height:32px; background: rgba(241, 245, 249, 0.5); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:22px; color:#64748b; z-index:110; backdrop-filter: blur(5px);">×
             </div>
-            <div style="position: relative; width: 100%; height: 250px; background: #f8fafc; border-radius: 12px; overflow: hidden;">
-                <img id="modal_product_img" src="" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+            <div style="position: relative; width: 100%; height: 250px; background: rgba(248, 250, 252, 0.4); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2);">
+                <img id="modal_product_img" src="" 
+                    style="width: 100%; height: 100%; object-fit: contain; display: block; 
+                        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)) brightness(1.05) contrast(1.05) saturate(1.1); 
+                        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                        mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+                        border-radius: 20px; overflow: hidden;">
             <button type="button" class="slider-nav" onclick="changeImage(-1)" id="btn_prev" 
-                style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 100; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; display: flex; align-items: center; justify-content: center;">&#10094;
+                style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 100; background: rgba(255,255,255,0.6); border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px);">&#10094;
             </button>
             <button type="button" class="slider-nav" onclick="changeImage(1)" id="btn_next" 
-                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 100; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; display: flex; align-items: center; justify-content: center;">&#10095;
+                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 100; background: rgba(255,255,255,0.6); border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px);">&#10095;
             </button>
-                <div id="image_counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; padding: 2px 10px; border-radius: 10px; font-size: 11px; z-index: 101;">1/1</div>
+                <div id="image_counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.4); color: white; padding: 2px 10px; border-radius: 10px; font-size: 11px; z-index: 101; backdrop-filter: blur(4px);">1/1</div>
             </div>
-            <h3 id="modal_product_name" style="margin:15px 0 5px; font-size:1.25rem; color:#1e293b; text-align:center;"></h3>
+            <h3 id="modal_product_name" style="margin:15px 0 5px; font-size:1.25rem; color:#1e293b; text-align:center; text-shadow: 0 1px 2px rgba(255,255,255,0.8);"></h3>
             <div id="modal_product_price" style="color:#ee002e; font-size:1.5rem; font-weight:900; margin-bottom:15px; text-align:center;"></div>
-            <div style="text-align:left; background:#f8fafc; padding:15px; border-radius:12px; border:1px solid #f1f5f9;">
+            <div style="text-align:left; background: rgba(248, 250, 252, 0.4); padding:15px; border-radius:12px; border:1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px);">
                 <div style="font-weight:bold; margin-bottom:8px; font-size:0.85rem; color:#475569; display:flex; align-items:center; gap:5px;">
                     <i class="fas fa-info-circle"></i> CẤU HÌNH CHI TIẾT
                 </div>
                 <div id="modal_product_specs" style="font-size:0.85rem; color:#334155; line-height:1.6;"></div>
             </div>
-            <button class="add-cart-btn" onclick="addInvoiceToCart(currentProduct.name, currentProduct.price); document.getElementById('productModal').style.display='none';" style="width:100%; margin-top:20px; padding:16px; background:#ee002e; color:white; border:none; border-radius:12px; font-weight:bold; font-size:1rem; cursor:pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(238,0,46,0.3);">
+            <button class="add-cart-btn" onclick="addInvoiceToCart(currentProduct.name, currentProduct.price); document.getElementById('productModal').style.display='none';" style="width:100%; margin-top:20px; padding:16px; background: rgba(238, 0, 46, 0.85); color:white; border:none; border-radius:12px; font-weight:bold; font-size:1rem; cursor:pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(238,0,46,0.2); backdrop-filter: blur(5px);">
             <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
             </button>
         </div>
